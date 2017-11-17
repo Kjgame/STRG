@@ -5,18 +5,26 @@
  */
 package login;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author erik.erbsloeh
  */
 public class DBController {
     
+    private Database db;
+    
     public DBController() {
-        
+        db = new Database("", "baum", "tree");
+        db.connect();
     }
     
     public boolean login(String username, String password) {
-        return true;
+        
+        ResultSet rs = db.executeStatement("statement");
+        
+        return rs != null;
     }
     
 }
