@@ -6,6 +6,7 @@
 package login;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -16,15 +17,16 @@ public class DBController {
     private Database db;
     
     public DBController() {
-        db = new Database("", "baum", "tree");
+        db = new Database("jdbc:mysql://127.0.0.1", "root", "");
         db.connect();
     }
     
-    public boolean login(String username, String password) {
+    public boolean login(String username, String password) throws SQLException {
         
-        ResultSet rs = db.executeStatement("statement");
+        ResultSet rs = db.executeStatement("select id from login.users where name = \"" + username + "\" and pass = \"" + password + "\"");
         
-        return rs != null;
+        
+        return rs.next();
     }
     
 }

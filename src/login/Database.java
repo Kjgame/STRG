@@ -28,6 +28,10 @@ public class Database {
             
             Class.forName("com.mysql.jdbc.Driver");
             
+            this.URL = URL;
+            this.user = user;
+            this.password = password;
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -42,6 +46,10 @@ public class Database {
                     ret = true;
                 }
             
+            }
+            else {
+                conn = (Connection) DriverManager.getConnection(URL, user, password);
+                ret = true;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);

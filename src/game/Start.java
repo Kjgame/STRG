@@ -5,7 +5,7 @@
  */
 package game;
 
-import javax.swing.JOptionPane;
+import login.LoginFrame;
 
 /**
  *
@@ -13,10 +13,13 @@ import javax.swing.JOptionPane;
  */
 public class Start {
     
-    
+    public static void main(String[] args) {
+//        LoginFrame.loginWindow();
+        start("Test");
+    }
     
     public static void start(String username) {
-        JOptionPane.showMessageDialog(null, username);
+        GameFrame.start();
     }
     
 }

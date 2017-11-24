@@ -8,6 +8,7 @@ package login;
 import game.Start;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -123,7 +124,6 @@ public class LoginFrame extends javax.swing.JFrame {
         
         String username = txtfUsername.getText();
         String password = txtfPassword.getText();
-        
         if ("".equals(username) || "".equals(password)) showErrorMessage("Please enter a username and a password");
         else if (!db.login(username, password)) {
             showErrorMessage("Entered combination is not valid");
@@ -142,7 +142,7 @@ public class LoginFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void loginWindow() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
