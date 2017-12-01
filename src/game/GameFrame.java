@@ -5,6 +5,13 @@
  */
 package game;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
+
 /**
  *
  * @author erik.erbsloeh
@@ -15,7 +22,15 @@ public class GameFrame extends javax.swing.JFrame {
      * Creates new form GameFrame
      */
     public GameFrame() {
+        super("");
+        setExtendedState(MAXIMIZED_BOTH);
+        setUndecorated(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        setAlwaysOnTop(true);
+        
         initComponents();
+        
+        setVisible(true);
     }
 
     /**
@@ -27,38 +42,27 @@ public class GameFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        gamePanel1 = new game.GamePanel(5,5);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("STRG");
-
-        javax.swing.GroupLayout gamePanel1Layout = new javax.swing.GroupLayout(gamePanel1);
-        gamePanel1.setLayout(gamePanel1Layout);
-        gamePanel1Layout.setHorizontalGroup(
-            gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        gamePanel1Layout.setVerticalGroup(
-            gamePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 238, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gamePanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(gamePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 62, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void open() {
+//        gamePanel.setParent(this);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -89,12 +93,13 @@ public class GameFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GameFrame().setVisible(true);
+                new GameFrame();
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private game.GamePanel gamePanel1;
     // End of variables declaration//GEN-END:variables
+
 }

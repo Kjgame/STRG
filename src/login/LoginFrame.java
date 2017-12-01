@@ -5,10 +5,12 @@
  */
 package login;
 
-import game.Start;
+import main.Start;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -122,17 +124,23 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void login() {
         
-        String username = txtfUsername.getText();
-        String password = txtfPassword.getText();
-        if ("".equals(username) || "".equals(password)) showErrorMessage("Please enter a username and a password");
-        else if (!db.login(username, password)) {
-            showErrorMessage("Entered combination is not valid");
+        try {
+            
+            String username = txtfUsername.getText();
+            String password = txtfPassword.getText();
+            if ("".equals(username) || "".equals(password)) showErrorMessage("Please enter a username and a password");
+            else if (!db.login(username, password)) {
+                showErrorMessage("Entered combination is not valid");
+            }
+            else {
+                this.dispose();
+                Start.start(username);
+            }
+            txtfUsername.requestFocus();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else {
-            this.dispose();
-            Start.start(username);
-        }
-        txtfUsername.requestFocus();
     }
     
     private void showErrorMessage(String message) {

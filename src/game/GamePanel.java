@@ -7,6 +7,8 @@ package game;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JPanel;
@@ -19,6 +21,7 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
     
     private int columns, rows, multC, multR;
     private Dimension size;
+    private GameFrame parent;
 
     public GamePanel() {
         super();
@@ -47,7 +50,13 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
         for (int i = 0; i < rows; i++) {
             g.drawLine(0, i*multR, size.width, i*multR);
         }
+        g.drawLine(size.width-1, 0, size.width-1, size.height-1);
+        g.drawLine(0, size.height-1, size.width-1, size.height-1);
         
+    }
+    
+    private void clicked(int column, int row) {
+        System.out.println(column + ":" + row);
     }
     
     //<editor-fold desc="Getter/Setter" defaultstate="collapsed">
@@ -57,6 +66,7 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
 
     public void setColumns(int columns) {
         this.columns = columns;
+        repaint();
     }
 
     public int getRows() {
@@ -65,9 +75,13 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
 
     public void setRows(int rows) {
         this.rows = rows;
+        repaint();
+    }
+
+    public void setParent(GameFrame parent) {
+        this.parent = parent;
     }
     //</editor-fold>
-
     
     //<editor-fold desc="MouseListenerMethods" defaultstate="collapsed">
     @Override
@@ -77,7 +91,7 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
+        clicked(e.getPoint().x / multC, e.getPoint().y / multR);
     }
 
     @Override
@@ -95,10 +109,14 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
         
     }
     //</editor-fold>
-
+    
+    public float getRatio() {
+        size = getSize();
+        return size.width/size.height;
+    }
+    
     @Override
     public void run() {
         
     }
-    
 }
