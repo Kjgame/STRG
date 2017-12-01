@@ -21,7 +21,6 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
     
     private int columns, rows, multC, multR;
     private Dimension size;
-    private GameFrame parent;
 
     public GamePanel() {
         super();
@@ -77,10 +76,7 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
         this.rows = rows;
         repaint();
     }
-
-    public void setParent(GameFrame parent) {
-        this.parent = parent;
-    }
+    
     //</editor-fold>
     
     //<editor-fold desc="MouseListenerMethods" defaultstate="collapsed">
@@ -109,11 +105,6 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
         
     }
     //</editor-fold>
-    
-    public float getRatio() {
-        size = getSize();
-        return size.width/size.height;
-    }
     
     @Override
     public void run() {

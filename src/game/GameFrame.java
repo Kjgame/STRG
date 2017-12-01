@@ -5,11 +5,7 @@
  */
 package game;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import static java.awt.Frame.MAXIMIZED_BOTH;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
@@ -21,16 +17,24 @@ public class GameFrame extends javax.swing.JFrame {
     /**
      * Creates new form GameFrame
      */
+    
+    private ContentPanel contentPanel;
+    
     public GameFrame() {
         super("");
-        setExtendedState(MAXIMIZED_BOTH);
+        
         setUndecorated(true);
+        setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        setAlwaysOnTop(true);
         
         initComponents();
         
+        contentPanel = new ContentPanel();
+        setContentPane(contentPanel);
+        getContentPane().setSize(getSize());
         setVisible(true);
+        setResizable(false);
+
     }
 
     /**
@@ -49,19 +53,15 @@ public class GameFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 684, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 549, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public void open() {
-//        gamePanel.setParent(this);
-    }
     
     /**
      * @param args the command line arguments
@@ -94,7 +94,6 @@ public class GameFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GameFrame();
-                
             }
         });
     }
