@@ -6,7 +6,13 @@
 package game;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -15,17 +21,26 @@ import java.awt.Toolkit;
 public class ContentPanel extends javax.swing.JPanel {
 
     Dimension screen;
+    Image[] images;
     
     /**
      * Creates new form ContentPanel
      */
     public ContentPanel() {
+	screen = Toolkit.getDefaultToolkit().getScreenSize();
+        images = new Image[1];
+        try {
+            images[0] = ImageIO.read(new File("img//test.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(ContentPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         initComponents();
         gamePanel.addMouseListener(gamePanel);
-        screen = Toolkit.getDefaultToolkit().getScreenSize();
+        
         this.setSize(screen);
+        
         System.out.println(screen);
-        gamePanel.setSize(screen.height, screen.height);
+        
     }
 
     /**
@@ -37,37 +52,29 @@ public class ContentPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        gamePanel = new game.GamePanel(8,8);
+        controlPanel = new game.ControlPanel();
+        gamePanel = new game.GamePanel(8,8,images);
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        add(controlPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(screen.height, 0, screen.width-screen.height, screen.height));
 
         javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
         gamePanel.setLayout(gamePanelLayout);
         gamePanelLayout.setHorizontalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 421, Short.MAX_VALUE)
+            .addGap(0, 900, Short.MAX_VALUE)
         );
         gamePanelLayout.setVerticalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 434, Short.MAX_VALUE)
+            .addGap(0, 900, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(gamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 457, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(gamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 163, Short.MAX_VALUE))
-        );
+        add(gamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, screen.height, screen.height));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private game.ControlPanel controlPanel;
     private game.GamePanel gamePanel;
     // End of variables declaration//GEN-END:variables
 }
