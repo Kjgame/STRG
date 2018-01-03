@@ -22,22 +22,54 @@ public class ContentPanel extends javax.swing.JPanel {
 
     Dimension screen;
     Image[] images;
+    int[][] map;
+    int gpSize;
+    
+    private GameLogic logic;
+    
     
     /**
      * Creates new form ContentPanel
      */
     public ContentPanel() {
+        
+        
+        
 	screen = Toolkit.getDefaultToolkit().getScreenSize();
-        images = new Image[1];
+        images = new Image[5];
         try {
-            images[0] = ImageIO.read(new File("img//test.png"));
+            images[0] = ImageIO.read(new File("img//path.png"));
+            images[1] = ImageIO.read(new File("img//player1.png"));
+            images[2] = ImageIO.read(new File("img//player2.png"));
+            images[3] = ImageIO.read(new File("img//wall.png"));
+            images[4] = ImageIO.read(new File("img//crosshair.png"));
         } catch (IOException ex) {
             Logger.getLogger(ContentPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        int[][] mapp =  
+            {{2,2,0,0,0,0,0,0},
+             {0,0,0,0,0,0,0,0},
+             {0,0,0,0,0,0,0,0},
+             {0,0,0,0,0,0,0,0},
+             {0,0,0,0,0,0,0,0},
+             {0,0,0,0,0,0,0,0},
+             {0,0,0,0,0,0,0,0},
+             {0,0,0,0,0,0,1,1}};
+        map = mapp;
+        
+        
+        
+        gpSize = ((int) screen.height/8)*8;
+        
         initComponents();
+        
         gamePanel.addMouseListener(gamePanel);
         
+        logic = new GameLogic(map, gamePanel, controlPanel);
+        
         this.setSize(screen);
+        
         
         System.out.println(screen);
         
@@ -52,11 +84,10 @@ public class ContentPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        controlPanel = new game.ControlPanel();
-        gamePanel = new game.GamePanel(8,8,images);
+        gamePanel = new game.GamePanel(8,8,images, map, this);
+        controlPanel = new game.ControlPanel(this);
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(controlPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(screen.height, 0, screen.width-screen.height, screen.height));
 
         javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
         gamePanel.setLayout(gamePanelLayout);
@@ -69,10 +100,18 @@ public class ContentPanel extends javax.swing.JPanel {
             .addGap(0, 900, Short.MAX_VALUE)
         );
 
-        add(gamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, screen.height, screen.height));
+        add(gamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, gpSize, gpSize));
+        add(controlPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(screen.height, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-
+    public int clicked(int column, int row, int button) {
+        return logic.click(column, row, button);
+    }
+    
+    public GameLogic getLogic() {
+        return logic;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private game.ControlPanel controlPanel;
     private game.GamePanel gamePanel;

@@ -5,6 +5,8 @@
  */
 package game;
 
+import javax.swing.JProgressBar;
+import classes.Character;
 /**
  *
  * @author erik.erbsloeh
@@ -14,12 +16,34 @@ public class ControlPanel extends javax.swing.JPanel {
     /**
      * Creates new form ControlPanel
      */
-    public ControlPanel() {
+    public ControlPanel(ContentPanel parent) {
         initComponents();
-        lblTime.setVisible(false);
-        lblTime2.setVisible(false);
+        lblTime.setText(pauseTime[0] + "");
+        lblTime2.setText(pauseTime[1] + "");
+        lblMessage.setText("");
+        thread = new TimerThread(lblMessage, "", 0);
+        ct = new CounterThread[2];
+        ct[0] = new CounterThread(lblTime, null, pauseTime[0]);
+        ct[1] = new CounterThread(lblTime2, null, pauseTime[1]);
+        
+        health = new JProgressBar[2][2];
+        health[0][0] = pgbPlayer1Char1;
+        health[0][1] = pgbPlayer1Char2;
+        health[1][0] = pgbPlayer2Char1;
+        health[1][1] = pgbPlayer2Char2;
+        
+        this.parent = parent;
     }
 
+    private int turnTime = 30;
+    private int[] pauseTime = {300, 300};
+    private CounterThread[] ct;
+    
+    private JProgressBar[][] health;
+    
+    private ContentPanel parent;
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,39 +62,82 @@ public class ControlPanel extends javax.swing.JPanel {
         lblTime = new javax.swing.JLabel();
         lblTime2 = new javax.swing.JLabel();
         lblPlayer2 = new javax.swing.JLabel();
-        pgbPlayer1Char3 = new javax.swing.JProgressBar();
-        pgbPlayer1Char4 = new javax.swing.JProgressBar();
+        pgbPlayer2Char1 = new javax.swing.JProgressBar();
+        pgbPlayer2Char2 = new javax.swing.JProgressBar();
         lblHealth1 = new javax.swing.JLabel();
         btnEndTurn1 = new javax.swing.JButton();
         btnPause1 = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
+        lblMessage = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         lblPlayer1.setText("Player 1");
 
         pgbPlayer1Char1.setBackground(new java.awt.Color(255, 51, 51));
         pgbPlayer1Char1.setForeground(new java.awt.Color(255, 51, 51));
-        pgbPlayer1Char1.setValue(50);
+        pgbPlayer1Char1.setValue(100);
+
+        pgbPlayer1Char2.setValue(100);
 
         lblHealth.setText("Health");
 
         btnEndTurn.setText("End Turn");
+        btnEndTurn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEndTurnActionPerformed(evt);
+            }
+        });
 
         btnPause.setText("Pause");
+        btnPause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPauseActionPerformed(evt);
+            }
+        });
 
-        lblTime.setText("jLabel3");
+        lblTime.setText("5:00");
 
-        lblTime2.setText("jLabel3");
+        lblTime2.setText("5:00");
 
         lblPlayer2.setText("Player 2");
 
-        pgbPlayer1Char3.setBackground(new java.awt.Color(255, 51, 51));
-        pgbPlayer1Char3.setForeground(new java.awt.Color(255, 51, 51));
-        pgbPlayer1Char3.setValue(50);
+        pgbPlayer2Char1.setBackground(new java.awt.Color(255, 51, 51));
+        pgbPlayer2Char1.setForeground(new java.awt.Color(255, 51, 51));
+        pgbPlayer2Char1.setValue(100);
+
+        pgbPlayer2Char2.setValue(100);
 
         lblHealth1.setText("Health");
 
         btnEndTurn1.setText("End Turn");
+        btnEndTurn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEndTurn1ActionPerformed(evt);
+            }
+        });
 
         btnPause1.setText("Pause");
+        btnPause1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPause1ActionPerformed(evt);
+            }
+        });
+
+        btnExit.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnExit.setText("End Game");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
+        lblMessage.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblMessage.setText("MessageLabel");
+
+        jLabel1.setText("lblTimer");
+
+        jLabel2.setText("lblTimer2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -79,37 +146,52 @@ public class ControlPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pgbPlayer1Char2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pgbPlayer1Char1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEndTurn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPause))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblTime)
+                                .addGap(29, 29, 29))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblHealth)
+                                    .addComponent(lblPlayer1)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnEndTurn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPause, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(pgbPlayer1Char2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pgbPlayer1Char1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnEndTurn1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPause1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblTime2)
+                                .addGap(29, 29, 29))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblHealth1)
+                                    .addComponent(lblPlayer2)))
+                            .addComponent(pgbPlayer2Char1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pgbPlayer2Char2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(lblTime))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblHealth)
-                            .addComponent(lblPlayer1))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pgbPlayer1Char4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pgbPlayer1Char3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEndTurn1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPause1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(lblTime2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblHealth1)
-                            .addComponent(lblPlayer2))))
-                .addContainerGap(60, Short.MAX_VALUE))
+                            .addComponent(lblMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 144, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,11 +203,13 @@ public class ControlPanel extends javax.swing.JPanel {
                         .addGap(26, 26, 26)
                         .addComponent(lblHealth1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pgbPlayer1Char3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pgbPlayer2Char1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pgbPlayer1Char4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pgbPlayer2Char2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(lblTime2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTime2)
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnEndTurn1)
@@ -139,30 +223,92 @@ public class ControlPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pgbPlayer1Char2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(lblTime)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTime)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnEndTurn)
                             .addComponent(btnPause))))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(106, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauseActionPerformed
+        if (!ct[0].isAlive()) {
+            ct[0] = new CounterThread(lblTime, null, pauseTime[0]);
+            ct[0].start();
+            btnPause.setText("Resume");
+        }
+        else {
+            ct[0].interrupt();
+            pauseTime[0] = ct[0].getRemainingTime();
+            btnPause.setText("Pause");
+        }
+    }//GEN-LAST:event_btnPauseActionPerformed
+
+    private void btnPause1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPause1ActionPerformed
+        if (!ct[1].isAlive()) {
+            ct[1] = new CounterThread(lblTime2, null, pauseTime[1]);
+            ct[1].start();
+            btnPause1.setText("Resume");
+        }
+        else {
+            ct[1].interrupt();
+            pauseTime[1] = ct[1].getRemainingTime();
+            btnPause1.setText("Pause");
+        }
+    }//GEN-LAST:event_btnPause1ActionPerformed
+
+    private void btnEndTurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEndTurnActionPerformed
+        parent.getLogic().nextTurn();
+    }//GEN-LAST:event_btnEndTurnActionPerformed
+
+    private void btnEndTurn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEndTurn1ActionPerformed
+        parent.getLogic().nextTurn();
+    }//GEN-LAST:event_btnEndTurn1ActionPerformed
+
+    private TimerThread thread;
+    
+    public void showMessage(String message, int duration) {
+        if(thread.isAlive()) thread.interrupt();
+        
+        thread = new TimerThread(lblMessage, message, duration);
+        thread.start();
+    }
+    
+    public void updateHealth(Character c) {
+        health[c.getPlayer()-1][c.getCharNr()].setValue(c.getHealth());
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEndTurn;
     private javax.swing.JButton btnEndTurn1;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnPause;
     private javax.swing.JButton btnPause1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblHealth;
     private javax.swing.JLabel lblHealth1;
+    private javax.swing.JLabel lblMessage;
     private javax.swing.JLabel lblPlayer1;
     private javax.swing.JLabel lblPlayer2;
     private javax.swing.JLabel lblTime;
     private javax.swing.JLabel lblTime2;
     private javax.swing.JProgressBar pgbPlayer1Char1;
     private javax.swing.JProgressBar pgbPlayer1Char2;
-    private javax.swing.JProgressBar pgbPlayer1Char3;
-    private javax.swing.JProgressBar pgbPlayer1Char4;
+    private javax.swing.JProgressBar pgbPlayer2Char1;
+    private javax.swing.JProgressBar pgbPlayer2Char2;
     // End of variables declaration//GEN-END:variables
 }
