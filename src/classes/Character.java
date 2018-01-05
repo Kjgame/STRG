@@ -18,7 +18,7 @@ public class Character {
     private int charNr;
     private int health;
     private Point position;
-    private boolean attacked, moved;
+    private boolean attacked, moved, dead;
     private int baseDamage;
     private int damageFalloff;
     private int movementRange;
@@ -33,11 +33,13 @@ public class Character {
         this.movementRange = movementRange;
         attacked = false;
         moved = false;
+        dead = false;
     }
     
     public boolean hit(int damage) {
         health -= damage;
-        return health <= 0;
+        dead = health <= 0;
+        return dead;
     }
     
     public int attack(int distance) throws AlreadyDoneThatException {
@@ -94,6 +96,10 @@ public class Character {
         this.moved = moved;
     }
 
+    public boolean isDead() {
+        return dead;
+    }
+    
     public int getBaseDamage() {
         return baseDamage;
     }

@@ -16,7 +16,7 @@ public class ControlPanel extends javax.swing.JPanel {
     /**
      * Creates new form ControlPanel
      */
-    public ControlPanel(ContentPanel parent) {
+    public ControlPanel(ContentPanel parent, String playername1, String playername2) {
         initComponents();
         lblTime.setText(pauseTime[0] + "");
         lblTime2.setText(pauseTime[1] + "");
@@ -25,6 +25,9 @@ public class ControlPanel extends javax.swing.JPanel {
         ct = new CounterThread[2];
         ct[0] = new CounterThread(lblTime, null, pauseTime[0]);
         ct[1] = new CounterThread(lblTime2, null, pauseTime[1]);
+        
+        lblPlayer1.setText(playername1);
+        lblPlayer2.setText(playername2);
         
         health = new JProgressBar[2][2];
         health[0][0] = pgbPlayer1Char1;
@@ -72,6 +75,7 @@ public class ControlPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
+        lblPlayer1.setFont(new java.awt.Font("Viner Hand ITC", 0, 18)); // NOI18N
         lblPlayer1.setText("Player 1");
 
         pgbPlayer1Char1.setBackground(new java.awt.Color(255, 51, 51));
@@ -80,8 +84,10 @@ public class ControlPanel extends javax.swing.JPanel {
 
         pgbPlayer1Char2.setValue(100);
 
+        lblHealth.setFont(new java.awt.Font("Viner Hand ITC", 0, 11)); // NOI18N
         lblHealth.setText("Health");
 
+        btnEndTurn.setFont(new java.awt.Font("Viner Hand ITC", 0, 11)); // NOI18N
         btnEndTurn.setText("End Turn");
         btnEndTurn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,6 +95,7 @@ public class ControlPanel extends javax.swing.JPanel {
             }
         });
 
+        btnPause.setFont(new java.awt.Font("Viner Hand ITC", 0, 11)); // NOI18N
         btnPause.setText("Pause");
         btnPause.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,10 +103,13 @@ public class ControlPanel extends javax.swing.JPanel {
             }
         });
 
+        lblTime.setFont(new java.awt.Font("Viner Hand ITC", 0, 11)); // NOI18N
         lblTime.setText("5:00");
 
+        lblTime2.setFont(new java.awt.Font("Viner Hand ITC", 0, 11)); // NOI18N
         lblTime2.setText("5:00");
 
+        lblPlayer2.setFont(new java.awt.Font("Viner Hand ITC", 0, 18)); // NOI18N
         lblPlayer2.setText("Player 2");
 
         pgbPlayer2Char1.setBackground(new java.awt.Color(255, 51, 51));
@@ -108,8 +118,10 @@ public class ControlPanel extends javax.swing.JPanel {
 
         pgbPlayer2Char2.setValue(100);
 
+        lblHealth1.setFont(new java.awt.Font("Viner Hand ITC", 0, 11)); // NOI18N
         lblHealth1.setText("Health");
 
+        btnEndTurn1.setFont(new java.awt.Font("Viner Hand ITC", 0, 11)); // NOI18N
         btnEndTurn1.setText("End Turn");
         btnEndTurn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,6 +129,7 @@ public class ControlPanel extends javax.swing.JPanel {
             }
         });
 
+        btnPause1.setFont(new java.awt.Font("Viner Hand ITC", 0, 11)); // NOI18N
         btnPause1.setText("Pause");
         btnPause1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +137,7 @@ public class ControlPanel extends javax.swing.JPanel {
             }
         });
 
-        btnExit.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnExit.setFont(new java.awt.Font("Viner Hand ITC", 0, 24)); // NOI18N
         btnExit.setText("End Game");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,11 +145,13 @@ public class ControlPanel extends javax.swing.JPanel {
             }
         });
 
-        lblMessage.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblMessage.setFont(new java.awt.Font("Viner Hand ITC", 0, 24)); // NOI18N
         lblMessage.setText("MessageLabel");
 
+        jLabel1.setFont(new java.awt.Font("Viner Hand ITC", 0, 11)); // NOI18N
         jLabel1.setText("lblTimer");
 
+        jLabel2.setFont(new java.awt.Font("Viner Hand ITC", 0, 11)); // NOI18N
         jLabel2.setText("lblTimer2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -234,7 +249,7 @@ public class ControlPanel extends javax.swing.JPanel {
                 .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

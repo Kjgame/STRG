@@ -32,9 +32,22 @@ public class LoginFrame extends javax.swing.JFrame {
                     else if (e.getSource().equals(txtfPassword)) login();
             }
         };
+        ActionListener listener2 = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(txtfUsername1)) txtfPassword1.requestFocus();
+                    else if (e.getSource().equals(txtfPassword1)) login();
+            }
+        };
         
         txtfUsername.addActionListener(listener);
         txtfPassword.addActionListener(listener);
+        
+        txtfUsername1.addActionListener(listener2);
+        txtfPassword1.addActionListener(listener2);
+        
+        lblLoggedInPlayer1.setVisible(false);
+        lblLoggedInPlayer2.setVisible(false);
         
     }
 
@@ -47,15 +60,29 @@ public class LoginFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblLogin = new javax.swing.JLabel();
+        pnlPlayer1 = new javax.swing.JPanel();
+        txtfPassword = new javax.swing.JPasswordField();
         txtfUsername = new javax.swing.JTextField();
         lblUsername = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
         cmdLogin = new javax.swing.JButton();
-        lblLogin = new javax.swing.JLabel();
-        txtfPassword = new javax.swing.JPasswordField();
+        lblLoggedInPlayer1 = new javax.swing.JLabel();
+        pnlPlayer2 = new javax.swing.JPanel();
+        txtfPassword1 = new javax.swing.JPasswordField();
+        txtfUsername1 = new javax.swing.JTextField();
+        lblUsername1 = new javax.swing.JLabel();
+        lblPassword1 = new javax.swing.JLabel();
+        cmdLogin1 = new javax.swing.JButton();
+        lblLoggedInPlayer2 = new javax.swing.JLabel();
+        lblText = new javax.swing.JLabel();
+        lblText2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Log in to STRG");
+
+        lblLogin.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblLogin.setText("Log in to STRG");
 
         lblUsername.setText("Username");
 
@@ -68,59 +95,161 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
-        lblLogin.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblLogin.setText("Log in to STRG");
+        lblLoggedInPlayer1.setText("Logged In");
+
+        javax.swing.GroupLayout pnlPlayer1Layout = new javax.swing.GroupLayout(pnlPlayer1);
+        pnlPlayer1.setLayout(pnlPlayer1Layout);
+        pnlPlayer1Layout.setHorizontalGroup(
+            pnlPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPlayer1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblLoggedInPlayer1)
+                .addGap(60, 60, 60))
+            .addGroup(pnlPlayer1Layout.createSequentialGroup()
+                .addGroup(pnlPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPlayer1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblUsername)
+                            .addComponent(lblPassword))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtfUsername)
+                            .addComponent(txtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlPlayer1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(cmdLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlPlayer1Layout.setVerticalGroup(
+            pnlPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPlayer1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsername)
+                    .addGroup(pnlPlayer1Layout.createSequentialGroup()
+                        .addComponent(txtfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPassword)
+                            .addComponent(txtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmdLogin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLoggedInPlayer1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lblUsername1.setText("Username");
+
+        lblPassword1.setText("Password");
+
+        cmdLogin1.setText("Log in");
+        cmdLogin1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLogin1ActionPerformed(evt);
+            }
+        });
+
+        lblLoggedInPlayer2.setText("Logged In");
+
+        javax.swing.GroupLayout pnlPlayer2Layout = new javax.swing.GroupLayout(pnlPlayer2);
+        pnlPlayer2.setLayout(pnlPlayer2Layout);
+        pnlPlayer2Layout.setHorizontalGroup(
+            pnlPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPlayer2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPlayer2Layout.createSequentialGroup()
+                        .addGroup(pnlPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblUsername1)
+                            .addComponent(lblPassword1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtfUsername1)
+                            .addComponent(txtfPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPlayer2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pnlPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPlayer2Layout.createSequentialGroup()
+                                .addComponent(lblLoggedInPlayer2)
+                                .addGap(53, 53, 53))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPlayer2Layout.createSequentialGroup()
+                                .addComponent(cmdLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(37, 37, 37))))))
+        );
+        pnlPlayer2Layout.setVerticalGroup(
+            pnlPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPlayer2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsername1)
+                    .addGroup(pnlPlayer2Layout.createSequentialGroup()
+                        .addComponent(txtfUsername1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPassword1)
+                            .addComponent(txtfPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmdLogin1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLoggedInPlayer2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lblText.setText("Player 1");
+
+        lblText2.setText("Player2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(lblLogin))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblUsername)
-                            .addComponent(lblPassword))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtfUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                            .addComponent(txtfPassword)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(cmdLogin)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(pnlPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(113, 113, 113)
+                .addComponent(lblLogin))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(lblText)
+                .addGap(142, 142, 142)
+                .addComponent(lblText2))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(lblLogin)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblUsername)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPassword)
-                            .addComponent(txtfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmdLogin)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblText)
+                    .addComponent(lblText2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlPlayer2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlPlayer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private DBController db;
+    private boolean ready = false;
+    private String name1, name2;
     
     private void cmdLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLoginActionPerformed
         login();
     }//GEN-LAST:event_cmdLoginActionPerformed
+
+    private void cmdLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLogin1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmdLogin1ActionPerformed
 
     private void login() {
         
@@ -132,9 +261,40 @@ public class LoginFrame extends javax.swing.JFrame {
             else if (!db.login(username, password)) {
                 showErrorMessage("Entered combination is not valid");
             }
-            else {
+            else if (ready) {
                 this.dispose();
-                Start.start(username);
+                Start.start(username, name2);
+            }
+            else {
+                ready = true;
+                name1 = username;
+                lblLoggedInPlayer1.setVisible(true);
+            }
+            txtfUsername1.requestFocus();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void login2() {
+        
+        try {
+            
+            String username = txtfUsername1.getText();
+            String password = txtfPassword1.getText();
+            if ("".equals(username) || "".equals(password)) showErrorMessage("Please enter a username and a password");
+            else if (!db.login(username, password)) {
+                showErrorMessage("Entered combination is not valid");
+            }
+            else if (ready) {
+                this.dispose();
+                Start.start(name1, username);
+            }
+            else {
+                ready = true;
+                name2 = username;
+                lblLoggedInPlayer2.setVisible(true);
             }
             txtfUsername.requestFocus();
             
@@ -185,10 +345,21 @@ public class LoginFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cmdLogin;
+    private javax.swing.JButton cmdLogin1;
+    private javax.swing.JLabel lblLoggedInPlayer1;
+    private javax.swing.JLabel lblLoggedInPlayer2;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblPassword1;
+    private javax.swing.JLabel lblText;
+    private javax.swing.JLabel lblText2;
     private javax.swing.JLabel lblUsername;
+    private javax.swing.JLabel lblUsername1;
+    private javax.swing.JPanel pnlPlayer1;
+    private javax.swing.JPanel pnlPlayer2;
     private javax.swing.JPasswordField txtfPassword;
+    private javax.swing.JPasswordField txtfPassword1;
     private javax.swing.JTextField txtfUsername;
+    private javax.swing.JTextField txtfUsername1;
     // End of variables declaration//GEN-END:variables
 }

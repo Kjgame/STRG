@@ -16,11 +16,11 @@ public class Start {
     
     public static void main(String[] args) {
 //        LoginFrame.loginWindow();
-        start("Test");
+        start("Guest", "Guest");
     }
     
-    public static void start(String username) {
-        GameFrame.start();
+    public static void start(String username1, String username2) {
+        GameFrame.start(username1, username2);
     }
     
 }

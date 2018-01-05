@@ -87,7 +87,7 @@ public class GameLogic {
                     else {
                         ArrayList<Point> points = new ArrayList();
                         for (Character c : chars) {
-                            if (c.getPlayer()==playerNotTurn && !collision(coordClickedBefore, c.getPosition())) {
+                            if (c.getPlayer()==playerNotTurn && !c.isDead() && !collision(coordClickedBefore, c.getPosition())) {
                                 points.add(c.getPosition());
                             }
                         }
