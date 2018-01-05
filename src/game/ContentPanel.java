@@ -36,13 +36,15 @@ public class ContentPanel extends javax.swing.JPanel {
         
         
 	screen = Toolkit.getDefaultToolkit().getScreenSize();
-        images = new Image[5];
+        images = new Image[7];
         try {
             images[0] = ImageIO.read(new File("img//path.png"));
             images[1] = ImageIO.read(new File("img//player1.png"));
             images[2] = ImageIO.read(new File("img//player2.png"));
             images[3] = ImageIO.read(new File("img//wall.png"));
             images[4] = ImageIO.read(new File("img//crosshair.png"));
+            images[5] = ImageIO.read(new File("img//player1cross.png"));
+            images[6] = ImageIO.read(new File("img//player2cross.png"));
         } catch (IOException ex) {
             Logger.getLogger(ContentPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -52,7 +54,7 @@ public class ContentPanel extends javax.swing.JPanel {
              {0,0,0,0,0,0,0,0},
              {0,0,0,0,0,0,0,0},
              {0,0,0,0,0,0,0,0},
-             {0,0,0,0,0,0,0,0},
+             {0,0,0,0,0,0,3,3},
              {0,0,0,0,0,0,0,0},
              {0,0,0,0,0,0,0,0},
              {0,0,0,0,0,0,1,1}};

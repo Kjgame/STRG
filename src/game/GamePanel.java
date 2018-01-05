@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
 import javax.swing.JPanel;
+import classes.Character;
 
 /**
  *
@@ -22,7 +23,7 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
     
     private int columns, rows, multC, multR;
     private Dimension size;
-    private int[][] imageId;    //0=nothing / 1=player1 / 2=player2 / 3=object
+    private int[][] imageId;    //0=nothing / 1=player1 / 2=player2 / 3=object / 4=crosshair / 5=player1cross / 6=player2cross
     private Image[] images;
     private int[][] help;
 
@@ -82,6 +83,21 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
     }
     
     public void stopShowingMovementRange() {
+        this.setMap(imageId);
+    }
+    
+    public void showAttackTargets(Point[] points) {
+        help = new int[8][8];
+        for (int i = 0; i < imageId.length; i++) 
+            help[i] = Arrays.copyOf(imageId[i], 8);
+        
+        for (Point p : points) {
+            help[p.x][p.y] += 4;
+        }
+        this.paintImages(getGraphics(), size, help);
+    }
+    
+    public void stopShowingTargets() {
         this.setMap(imageId);
     }
     
