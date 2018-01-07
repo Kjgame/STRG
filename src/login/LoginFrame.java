@@ -248,7 +248,7 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdLoginActionPerformed
 
     private void cmdLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLogin1ActionPerformed
-        // TODO add your handling code here:
+        login2();
     }//GEN-LAST:event_cmdLogin1ActionPerformed
 
     private void login() {
@@ -263,6 +263,7 @@ public class LoginFrame extends javax.swing.JFrame {
             }
             else if (ready) {
                 this.dispose();
+                db.disconnect();
                 Start.start(username, name2);
             }
             else {
@@ -289,6 +290,7 @@ public class LoginFrame extends javax.swing.JFrame {
             }
             else if (ready) {
                 this.dispose();
+                db.disconnect();
                 Start.start(name1, username);
             }
             else {

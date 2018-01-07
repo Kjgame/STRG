@@ -16,7 +16,7 @@ public class Start {
     
     public static void main(String[] args) {
 //        LoginFrame.loginWindow();
-        start("Guest", "Guest");
+        start("Erik", "Samu");
     }
     
     public static void start(String username1, String username2) {

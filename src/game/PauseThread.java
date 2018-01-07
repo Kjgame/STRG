@@ -5,26 +5,28 @@
  */
 package game;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 
 /**
  *
  * @author Erik
  */
-public class CounterThread extends TimerThread {
+public class PauseThread extends TimerThread {
 
-    private int remainingTime;
+    protected int remainingTime;
+    protected int player;
+    protected ControlPanel cp;
     
-    public CounterThread(JLabel lbl, String text, int seconds) {
+    public PauseThread(JLabel lbl, String text, int seconds, int player, ControlPanel cp) {
         super(lbl, seconds+"", seconds);
+        this.cp = cp;
+        this.player = player;
         remainingTime = duration;
     }
     
     @Override
     public void run() {
-        for (int i = 0; i < remainingTime; remainingTime--) {
+        for (int i = 0; i <= remainingTime; remainingTime--) {
             try {
                 lbl.setText(remainingTime+"");
                 Thread.sleep(1000);
@@ -32,6 +34,13 @@ public class CounterThread extends TimerThread {
                 i = duration;
             }
         }
+        if (remainingTime <= 0) {
+            end();
+        }
+    }
+    
+    protected void end() {
+        cp.endPause(player);
     }
     
     public int getRemainingTime() {

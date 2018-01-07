@@ -19,13 +19,15 @@ import classes.Character;
  *
  * @author erik.erbsloeh
  */
-public class GamePanel extends JPanel implements MouseListener, Runnable {
+public class GamePanel extends JPanel implements MouseListener {
     
     private int columns, rows, multC, multR;
     private Dimension size;
     private int[][] imageId;    //0=nothing / 1=player1 / 2=player2 / 3=object / 4=crosshair / 5=player1cross / 6=player2cross
     private Image[] images;
     private int[][] help;
+    
+    private static boolean clickable;
 
     private ContentPanel parent;
     
@@ -44,6 +46,7 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
         this.imageId = new int[0][0];
         this.imageId = map;
         this.parent = parent;
+        clickable = true;
     }
 
     @Override
@@ -117,7 +120,8 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
     
     private void clicked(int column, int row, int button) {
         System.out.println(column + ":" + row + " " + button);
-        if (parent.clicked(column, row, button) == 1) repaint();
+        if (clickable)
+            if (parent.clicked(column, row, button) == 1) repaint();
     }
     
     //<editor-fold desc="Getter/Setter" defaultstate="collapsed">
@@ -137,6 +141,10 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
     public void setRows(int rows) {
         this.rows = rows;
         repaint();
+    }
+    
+    public static void setClickable(boolean clickable) {
+        GamePanel.clickable = clickable;
     }
     
     //</editor-fold>
@@ -169,8 +177,4 @@ public class GamePanel extends JPanel implements MouseListener, Runnable {
     }
     //</editor-fold>
     
-    @Override
-    public void run() {
-        
-    }
 }

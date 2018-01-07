@@ -29,4 +29,8 @@ public class DBController {
         return rs.next();
     }
     
+    public void disconnect() {
+        db.disconnect();
+    }
+    
 }

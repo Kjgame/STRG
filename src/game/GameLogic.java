@@ -21,6 +21,7 @@ public class GameLogic {
     public static final int player2 = 2;
     public static final int wall = 3;
     
+    public static final int baseHealth = 100;
     public static final int baseDamage = 20;
     public static final int damageFalloff = 2;
     public static final int movementRange = 2;
@@ -52,12 +53,12 @@ public class GameLogic {
         for (int c = 0; c < map.length; c++) {
             for (int i = 0; i < map[c].length; i++) {
                 if (map[c][i] == 1) {
-                    charas.add(new Character(player1, p1chars, 100, new Point(c, i), baseDamage, damageFalloff, movementRange));
+                    charas.add(new Character(player1, p1chars, baseHealth, new Point(c, i), baseDamage, damageFalloff, movementRange));
                     p1chars++;
                 }
                 if (map[c][i] == 2) {
-                    charas.add(new Character(player2, p2chars, 100, new Point(c, i), baseDamage, damageFalloff, movementRange));
-                    p1chars++;
+                    charas.add(new Character(player2, p2chars, baseHealth, new Point(c, i), baseDamage, damageFalloff, movementRange));
+                    p2chars++;
                 }
             }
         }
@@ -270,10 +271,29 @@ public class GameLogic {
         int help = playerTurn;
         playerTurn = playerNotTurn;
         playerNotTurn = help;
+        boolean[] game = {true, true};
         
         for (Character c : chars) {
+            game[c.getPlayer()-1] &= c.isDead();
             c.reset();
         }
+        
+        if (game[0] || game[1]) {
+            int x = 1;
+            if (game[0])    x = 2;
+            cp.endGame("playername" + x + " has won!");
+            
+            GamePanel.setClickable(false);
+        }
+        
+    }
+    
+    public int getPlayerOnTurn() {
+        return playerTurn;
+    }
+    
+    public int getPlayerNotOnTurn() {
+        return playerNotTurn;
     }
     
 }
