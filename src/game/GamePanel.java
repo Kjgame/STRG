@@ -58,14 +58,14 @@ public class GamePanel extends JPanel implements MouseListener {
         
         g.clearRect(0, 0, size.width, size.height);
         
+        //<editor-fold desc="drawing grid" defaultstate="collapsed">
         for (int i = 1; i < columns; i++) {
             g.drawLine(i*multC, 0, i*multC, size.height);
         }
         for (int i = 1; i < rows; i++) {
             g.drawLine(0, i*multR, size.width, i*multR);
         }
-//        g.drawLine(size.width-1, 0, size.width-1, size.height-1);
-//        g.drawLine(0, size.height-1, size.width-1, size.height-1);
+        //</editor-fold>
         
         paintImages(g, size, imageId);
         

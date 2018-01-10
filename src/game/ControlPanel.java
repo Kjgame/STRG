@@ -23,11 +23,20 @@ public class ControlPanel extends javax.swing.JPanel {
      */
     public ControlPanel(ContentPanel parent, String playername1, String playername2) {
         initComponents();
+        
+        //<editor-fold desc="setting texts" defaultstate="collapsed">
+        
         lblTime1.setText(pauseTime[0] + "");
         lblTime2.setText(pauseTime[1] + "");
         lblMessage.setText("");
         lblTurnTime1.setText(turnTime+"");
         lblTurnTime2.setText(turnTime+"");
+        lblPlayer1.setText(playername1);
+        lblPlayer2.setText(playername2);
+        
+        //</editor-fold>
+        
+        //<editor-fold desc="initializing threads" defaultstate="collapsed">
         
         thread = new TimerThread(lblMessage, "", 0);
         
@@ -35,10 +44,11 @@ public class ControlPanel extends javax.swing.JPanel {
         
         tt = new TurnThread(lblTurnTime1, null, turnTime, GameLogic.player1, this);
         
-        lblPlayer1.setText(playername1);
-        lblPlayer2.setText(playername2);
+        //</editor-fold>
         
         btnEndTurn2.setEnabled(false);
+        
+        //<editor-fold desc="filling arrays" defaultstate="collapsed">
         
         health = new JProgressBar[2][2];
         health[0][0] = pgbPlayer1Char1;
@@ -62,6 +72,8 @@ public class ControlPanel extends javax.swing.JPanel {
         btnEndTurn[0] = btnEndTurn1;
         btnEndTurn[1] = btnEndTurn2;
         
+        //</editor-fold>
+        
         this.parent = parent;
         
         this.pauseAfter = false;
@@ -73,14 +85,17 @@ public class ControlPanel extends javax.swing.JPanel {
     private int turnTime = 30;
     private int[] remainingTurnTime = {turnTime, turnTime};
     private int[] pauseTime = {100, 100};
+    
     private PauseThread ct;
     private TurnThread tt;
     
+    //<editor-fold desc="declaring arrays" defaultstate="collapsed">
     private JProgressBar[][] health;
     private JLabel[] lblTime;
     private JLabel[] lblTurnTime;
     private JButton[] btnPause;
     private JButton[] btnEndTurn;
+    //</editor-fold>
     
     private ContentPanel parent;
     
@@ -114,7 +129,6 @@ public class ControlPanel extends javax.swing.JPanel {
         lblMessage = new javax.swing.JLabel();
         lblTurnTime1 = new javax.swing.JLabel();
         lblTurnTime2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         lblPlayer1.setFont(new java.awt.Font("Viner Hand ITC", 0, 18)); // NOI18N
         lblPlayer1.setText("Player 1");
@@ -195,8 +209,6 @@ public class ControlPanel extends javax.swing.JPanel {
         lblTurnTime2.setFont(new java.awt.Font("Viner Hand ITC", 0, 11)); // NOI18N
         lblTurnTime2.setText("lblTimer2");
 
-        jLabel1.setText("Left click to attack - right click to move");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -212,46 +224,43 @@ public class ControlPanel extends javax.swing.JPanel {
                                 .addGap(0, 144, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(24, 24, 24)
-                                        .addComponent(lblTurnTime1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblTime1)
-                                        .addGap(29, 29, 29))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(61, 61, 61)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblHealth)
-                                            .addComponent(lblPlayer1)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnEndTurn1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnPause1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(pgbPlayer1Char2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(pgbPlayer1Char1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(42, 42, 42)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnEndTurn2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnPause2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(22, 22, 22)
-                                        .addComponent(lblTurnTime2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblTime2)
-                                        .addGap(29, 29, 29))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(61, 61, 61)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblHealth1)
-                                            .addComponent(lblPlayer2)))
-                                    .addComponent(pgbPlayer2Char1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(pgbPlayer2Char2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(24, 24, 24)
+                                .addComponent(lblTurnTime1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblTime1)
+                                .addGap(29, 29, 29))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblHealth)
+                                    .addComponent(lblPlayer1)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnEndTurn1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPause1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(pgbPlayer1Char2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pgbPlayer1Char1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnEndTurn2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPause2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(lblTurnTime2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblTime2)
+                                .addGap(29, 29, 29))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblHealth1)
+                                    .addComponent(lblPlayer2)))
+                            .addComponent(pgbPlayer2Char1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pgbPlayer2Char2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -295,9 +304,7 @@ public class ControlPanel extends javax.swing.JPanel {
                 .addComponent(lblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -318,7 +325,7 @@ public class ControlPanel extends javax.swing.JPanel {
     private void pause(int player) {
         player -= 1;
         if (!ct.isAlive()) {
-            
+            //<editor-fold desc="stating pause" defaultstate="collapsed">
             tt.interrupt();
             remainingTurnTime[player] = tt.getRemainingTime();
             
@@ -326,8 +333,10 @@ public class ControlPanel extends javax.swing.JPanel {
             ct.start();
             btnPause[player].setText("Resume");
             GamePanel.setClickable(false);
+            //</editor-fold>
         }
         else {
+            //<editor-fold desc="ending pause" defaultstate="collapsed">
             ct.interrupt();
             pauseTime[player] = ct.getRemainingTime();
             btnPause[player].setText("Pause");
@@ -336,6 +345,7 @@ public class ControlPanel extends javax.swing.JPanel {
             tt.start();
             
             GamePanel.setClickable(true);
+            //</editor-fold>
         }
     }
     
@@ -411,7 +421,6 @@ public class ControlPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnPause1;
     private javax.swing.JButton btnPause2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblHealth;
     private javax.swing.JLabel lblHealth1;
     private javax.swing.JLabel lblMessage;

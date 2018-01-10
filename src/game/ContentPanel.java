@@ -5,6 +5,7 @@
  */
 package game;
 
+import file.FileManager;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -33,10 +34,10 @@ public class ContentPanel extends javax.swing.JPanel {
      */
     public ContentPanel(String playername1, String playername2, String map) {
         
-        
-        
 	screen = Toolkit.getDefaultToolkit().getScreenSize();
+        
         images = new Image[7];
+        //<editor-fold desc="reading images" defaultstate="collapsed">
         try {
             images[0] = ImageIO.read(new File("img//path.png"));
             images[1] = ImageIO.read(new File("img//player1.png"));
@@ -48,6 +49,7 @@ public class ContentPanel extends javax.swing.JPanel {
         } catch (IOException ex) {
             Logger.getLogger(ContentPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         
         this.map = FileManager.getMap(map);
         

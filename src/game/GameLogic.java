@@ -72,7 +72,7 @@ public class GameLogic {
         int ret = 0;
         if (button == 1 || button == 3) {
             
-            //<editor-fold desc="firstClick">
+            //<editor-fold desc="firstClick" defaultstate="collapsed">
             if (firstClick) {
                 leftClick = button==1;
                 
@@ -107,7 +107,7 @@ public class GameLogic {
                 }
             }
             //</editor-fold>
-            //<editor-fold desc="secondClick">
+            //<editor-fold desc="secondClick" defaultstate="collapsed">
             else {
                 if (leftClick) {
                     Point clickedNow = new Point(row, column);
@@ -166,12 +166,11 @@ public class GameLogic {
         int offset;
         int step;
         
-        //diff == 0!!!!!!
         System.out.println(diffX);
         System.out.println(diffY);
         
         if(diffX == diffY) {
-            //<editor-fold desc="diffX = diffY">
+            //<editor-fold desc="diffX = diffY" defaultstate="collapsed">
             diffX = p2.x-p1.x;
             diffY = p2.y-p1.y;
             int c;
@@ -185,7 +184,7 @@ public class GameLogic {
             //</editor-fold>
         }   
         else if(diffX == 0) {
-            //<editor-fold desc="diffX = 0">
+            //<editor-fold desc="diffX = 0" defaultstate="collapsed">
             diffY = p2.y-p1.y;
             for (int i = diffY/Math.abs(diffY); Math.abs(i) < Math.abs(diffY); i += i/Math.abs(i)) {
                 ret |= map[p1.x][p1.y+i] != path;
@@ -194,7 +193,7 @@ public class GameLogic {
             //</editor-fold>
         }
         else if(diffY == 0) {
-            //<editor-fold desc="diffY = 0">
+            //<editor-fold desc="diffY = 0" defaultstate="collapsed">
             diffX = p2.x-p1.x;
             for (int i = diffX/Math.abs(diffX); Math.abs(i) < Math.abs(diffX); i += i/Math.abs(i)) {
                 ret |= map[p1.x+i][p1.y] != path;
@@ -203,7 +202,7 @@ public class GameLogic {
             //</editor-fold>
         }
         else if(diffX > diffY) {
-            //<editor-fold desc="diffX > diffY">
+            //<editor-fold desc="diffX > diffY" defaultstate="collapsed">
             diffX = p2.x-p1.x;
             direction = (p2.y-p1.y) / diffY;
             offset = diffX%diffY;
@@ -230,7 +229,7 @@ public class GameLogic {
             //</editor-fold>
         }
         else if(diffX < diffY) {
-            //<editor-fold desc="diffX < diffY">
+            //<editor-fold desc="diffX < diffY" defaultstate="collapsed">
             diffY = p2.y-p1.y;
             direction = (p2.x-p1.x) / diffX;
             offset = diffY%diffX;
