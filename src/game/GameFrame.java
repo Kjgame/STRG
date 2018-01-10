@@ -20,7 +20,7 @@ public class GameFrame extends javax.swing.JFrame {
     
     private ContentPanel contentPanel;
     
-    public GameFrame(String playername1, String playername2) {
+    public GameFrame(String playername1, String playername2, String map) {
         super("");
         
         setUndecorated(true);
@@ -29,7 +29,7 @@ public class GameFrame extends javax.swing.JFrame {
         
         initComponents();
         
-        contentPanel = new ContentPanel(playername1, playername2);
+        contentPanel = new ContentPanel(playername1, playername2, map);
         setContentPane(contentPanel);
         getContentPane().setSize(getSize());
         setVisible(true);
@@ -64,7 +64,7 @@ public class GameFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     
-    public static void start(String playername1, String playername2) {
+    public static void start(String playername1, String playername2, String map) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -91,7 +91,7 @@ public class GameFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GameFrame(playername1, playername2);
+                new GameFrame(playername1, playername2, map);
             }
         });
     }

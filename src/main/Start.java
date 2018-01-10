@@ -5,6 +5,7 @@
  */
 package main;
 
+import game.FileManager;
 import game.GameFrame;
 import login.LoginFrame;
 
@@ -15,12 +16,12 @@ import login.LoginFrame;
 public class Start {
     
     public static void main(String[] args) {
-//        LoginFrame.loginWindow();
-        start("Erik", "Samu");
+        LoginFrame.loginWindow();
+//        start("Erik", "Samu", "maps//graveyard.map");
     }
     
-    public static void start(String username1, String username2) {
-        GameFrame.start(username1, username2);
+    public static void start(String username1, String username2, String map) {
+        GameFrame.start(username1, username2, map);
     }
     
 }

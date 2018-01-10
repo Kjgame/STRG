@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game;
+package threads;
 
+import game.ControlPanel;
+import threads.TimerThread;
 import javax.swing.JLabel;
 
 /**

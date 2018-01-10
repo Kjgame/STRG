@@ -31,7 +31,7 @@ public class ContentPanel extends javax.swing.JPanel {
     /**
      * Creates new form ContentPanel
      */
-    public ContentPanel(String playername1, String playername2) {
+    public ContentPanel(String playername1, String playername2, String map) {
         
         
         
@@ -42,25 +42,14 @@ public class ContentPanel extends javax.swing.JPanel {
             images[1] = ImageIO.read(new File("img//player1.png"));
             images[2] = ImageIO.read(new File("img//player2.png"));
             images[3] = ImageIO.read(new File("img//wall.png"));
-            images[4] = ImageIO.read(new File("img//crosshair.png"));
+            images[4] = ImageIO.read(new File("img//pathcross.png"));
             images[5] = ImageIO.read(new File("img//player1cross.png"));
             images[6] = ImageIO.read(new File("img//player2cross.png"));
         } catch (IOException ex) {
             Logger.getLogger(ContentPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        int[][] mapp =  
-            {{0,2,0,0,0,0,0,0},
-             {2,0,3,3,0,0,3,0},
-             {0,0,0,0,0,0,0,0},
-             {3,0,3,0,0,3,0,0},
-             {0,0,3,0,0,3,0,3},
-             {0,0,0,0,0,0,0,0},
-             {0,3,0,0,3,3,0,1},
-             {0,0,0,0,0,0,1,0}};
-        map = mapp;
-        
-        
+        this.map = FileManager.getMap(map);
         
         gpSize = ((int) screen.height/8)*8;
         
@@ -68,7 +57,7 @@ public class ContentPanel extends javax.swing.JPanel {
         
         gamePanel.addMouseListener(gamePanel);
         
-        logic = new GameLogic(map, gamePanel, controlPanel);
+        logic = new GameLogic(this.map, gamePanel, controlPanel);
         
         this.setSize(screen);
         

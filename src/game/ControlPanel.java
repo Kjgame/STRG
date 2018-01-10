@@ -5,6 +5,9 @@
  */
 package game;
 
+import threads.PauseThread;
+import threads.TimerThread;
+import threads.TurnThread;
 import javax.swing.JProgressBar;
 import classes.Character;
 import javax.swing.JButton;

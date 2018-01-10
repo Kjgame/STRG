@@ -173,8 +173,12 @@ public class GameLogic {
         if(diffX == diffY) {
             //<editor-fold desc="diffX = diffY">
             diffX = p2.x-p1.x;
+            diffY = p2.y-p1.y;
+            int c;
             for (int i = diffX/Math.abs(diffX); Math.abs(i) < Math.abs(diffX); i += i/Math.abs(i)) {
-                ret |= map[p1.x+i][p1.y+i] != path;
+                c = diffY/Math.abs(diffY);
+                ret |= map[p1.x+i][p1.y+c] != path;
+                c += c/Math.abs(c);
                 System.out.println((p1.x+i) + "/" + (p1.y+i));
             }
             

@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import game.FileManager;
 
 /**
  *
@@ -36,7 +37,7 @@ public class LoginFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(txtfUsername1)) txtfPassword1.requestFocus();
-                    else if (e.getSource().equals(txtfPassword1)) login();
+                    else if (e.getSource().equals(txtfPassword1)) login2();
             }
         };
         
@@ -77,6 +78,9 @@ public class LoginFrame extends javax.swing.JFrame {
         lblLoggedInPlayer2 = new javax.swing.JLabel();
         lblText = new javax.swing.JLabel();
         lblText2 = new javax.swing.JLabel();
+        cmbMap = new javax.swing.JComboBox();
+        lblMap = new javax.swing.JLabel();
+        btnStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Log in to STRG");
@@ -202,23 +206,44 @@ public class LoginFrame extends javax.swing.JFrame {
 
         lblText2.setText("Player2");
 
+        cmbMap.setModel(new javax.swing.DefaultComboBoxModel(FileManager.getFiles()));
+
+        lblMap.setText("Map");
+
+        btnStart.setText("Start");
+        btnStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStartActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(pnlPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(pnlPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(lblLogin))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addComponent(lblText)
-                .addGap(142, 142, 142)
-                .addComponent(lblText2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(pnlPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(lblLogin))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(lblText)
+                        .addGap(142, 142, 142)
+                        .addComponent(lblText2)))
+                .addGap(36, 36, 36))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(lblMap)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbMap, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnStart)
+                .addGap(88, 88, 88))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,14 +258,19 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlPlayer2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlPlayer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMap)
+                    .addComponent(btnStart))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private DBController db;
-    private boolean ready = false;
+    private boolean ready1 = false, ready2 = false;
     private String name1, name2;
     
     private void cmdLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLoginActionPerformed
@@ -250,6 +280,14 @@ public class LoginFrame extends javax.swing.JFrame {
     private void cmdLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLogin1ActionPerformed
         login2();
     }//GEN-LAST:event_cmdLogin1ActionPerformed
+
+    private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
+        if (ready1 && ready2) {
+            db.disconnect();
+            this.dispose();
+            Start.start(name1, name2, (String) cmbMap.getSelectedItem());
+        }
+    }//GEN-LAST:event_btnStartActionPerformed
 
     private void login() {
         
@@ -261,13 +299,8 @@ public class LoginFrame extends javax.swing.JFrame {
             else if (!db.login(username, password)) {
                 showErrorMessage("Entered combination is not valid");
             }
-            else if (ready) {
-                this.dispose();
-                db.disconnect();
-                Start.start(username, name2);
-            }
             else {
-                ready = true;
+                ready1 = true;
                 name1 = username;
                 lblLoggedInPlayer1.setVisible(true);
             }
@@ -288,13 +321,8 @@ public class LoginFrame extends javax.swing.JFrame {
             else if (!db.login(username, password)) {
                 showErrorMessage("Entered combination is not valid");
             }
-            else if (ready) {
-                this.dispose();
-                db.disconnect();
-                Start.start(name1, username);
-            }
             else {
-                ready = true;
+                ready2 = true;
                 name2 = username;
                 lblLoggedInPlayer2.setVisible(true);
             }
@@ -346,11 +374,14 @@ public class LoginFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnStart;
+    private javax.swing.JComboBox cmbMap;
     private javax.swing.JButton cmdLogin;
     private javax.swing.JButton cmdLogin1;
     private javax.swing.JLabel lblLoggedInPlayer1;
     private javax.swing.JLabel lblLoggedInPlayer2;
     private javax.swing.JLabel lblLogin;
+    private javax.swing.JLabel lblMap;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblPassword1;
     private javax.swing.JLabel lblText;
