@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -56,15 +57,15 @@ public class FileManager {
             reader.close();
             
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "A file has not been found", "Error", JOptionPane.ERROR_MESSAGE);
     }   catch (IOException ex) {
-            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "A file is not readable", "Error", JOptionPane.ERROR_MESSAGE);
         }
         finally {
             try {
                 reader.close();
             } catch (IOException ex) {
-                Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
         }
     return ret;

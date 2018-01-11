@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,7 +34,7 @@ public class Database {
             this.password = password;
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "A library has not been found", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -52,8 +53,16 @@ public class Database {
                 ret = true;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "A database error has occured", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        return ret;
+    }
+    
+    public boolean isConnected() {
+        boolean ret = false;
+        try {
+            ret = !conn.isClosed();
+        } catch (SQLException ex) {        }
         return ret;
     }
     
@@ -62,7 +71,7 @@ public class Database {
             this.statement = (Statement) conn.createStatement();
             return this.statement.executeQuery(statement);
         } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "A database error has occured", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return null;
     }

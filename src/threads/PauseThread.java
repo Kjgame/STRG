@@ -6,7 +6,6 @@
 package threads;
 
 import game.ControlPanel;
-import threads.TimerThread;
 import javax.swing.JLabel;
 
 /**

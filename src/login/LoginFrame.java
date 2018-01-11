@@ -104,6 +104,11 @@ public class LoginFrame extends javax.swing.JFrame {
         cmbMap = new javax.swing.JComboBox();
         lblMap = new javax.swing.JLabel();
         btnStart = new javax.swing.JButton();
+        menuBar = new javax.swing.JMenuBar();
+        mnuDB = new javax.swing.JMenu();
+        mniAddress = new javax.swing.JMenuItem();
+        mniUser = new javax.swing.JMenuItem();
+        mniPass = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Log in to STRG");
@@ -240,6 +245,36 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
+        mnuDB.setText("Database");
+
+        mniAddress.setText("Address");
+        mniAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAddressActionPerformed(evt);
+            }
+        });
+        mnuDB.add(mniAddress);
+
+        mniUser.setText("Username");
+        mniUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniUserActionPerformed(evt);
+            }
+        });
+        mnuDB.add(mniUser);
+
+        mniPass.setText("Password");
+        mniPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniPassActionPerformed(evt);
+            }
+        });
+        mnuDB.add(mniPass);
+
+        menuBar.add(mnuDB);
+
+        setJMenuBar(menuBar);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -286,7 +321,7 @@ public class LoginFrame extends javax.swing.JFrame {
                     .addComponent(cmbMap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMap)
                     .addComponent(btnStart))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -295,6 +330,8 @@ public class LoginFrame extends javax.swing.JFrame {
     private DBController db;
     private boolean[] ready = {false, false};
     private String[] name;
+    
+    String[] dbInfo = {"127.0.0.1", "root", ""};
     
     private void cmdLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLogin1ActionPerformed
         login(0);
@@ -312,7 +349,25 @@ public class LoginFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnStartActionPerformed
 
+    private void mniAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAddressActionPerformed
+        setProperty(0, "Address");
+    }//GEN-LAST:event_mniAddressActionPerformed
+
+    private void mniUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniUserActionPerformed
+        setProperty(1, "Username");
+    }//GEN-LAST:event_mniUserActionPerformed
+
+    private void mniPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniPassActionPerformed
+        setProperty(2, "Password");
+    }//GEN-LAST:event_mniPassActionPerformed
+
+    private void setProperty(int property, String name) {
+        dbInfo[property] = JOptionPane.showInputDialog(this, name, dbInfo[property]);
+    }
+    
     private void login(int player) {
+        
+        if (!db.isConnected())  db.connect(dbInfo[0], dbInfo[1], dbInfo[2]);
         
         try {
             
@@ -331,7 +386,7 @@ public class LoginFrame extends javax.swing.JFrame {
             if (ready[1])   txtfUsername[0].requestFocus();
             
         } catch (SQLException ex) {
-            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "A database error has occured", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -351,7 +406,7 @@ public class LoginFrame extends javax.swing.JFrame {
         try {
 
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("CDE/Motif".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -390,6 +445,11 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblText2;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblUsername1;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem mniAddress;
+    private javax.swing.JMenuItem mniPass;
+    private javax.swing.JMenuItem mniUser;
+    private javax.swing.JMenu mnuDB;
     private javax.swing.JPanel pnlPlayer1;
     private javax.swing.JPanel pnlPlayer2;
     private javax.swing.JPasswordField txtfPassword1;

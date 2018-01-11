@@ -16,9 +16,19 @@ public class DBController {
     
     private Database db;
     
+    private boolean connected;
+    
     public DBController() {
-        db = new Database("jdbc:mysql://127.0.0.1", "root", "");
-        db.connect();
+        connected = false;
+    }
+    
+    public void connect(String adress, String user, String pass) {
+        db = new Database("jdbc:mysql://" + adress, user, pass);
+        connected = db.connect();
+    }
+    
+    public boolean isConnected() {
+        return connected && db.isConnected();
     }
     
     public boolean login(String username, String password) throws SQLException {

@@ -64,6 +64,8 @@ public class Character {
         this.moved = false;
     }
     
+    //<editor-fold desc="Getter and setter" defaultstate="collapsed">
+    
     public int getPlayer() {
         return player;
     }
@@ -124,6 +126,6 @@ public class Character {
         this.movementRange = movementRange;
     }
     
-    
+    //</editor-fold>
     
 }

@@ -166,19 +166,18 @@ public class GameLogic {
         int offset;
         int step;
         
-        System.out.println(diffX);
-        System.out.println(diffY);
+        System.out.println("DiffX=" + diffX);
+        System.out.println("DiffY=" + diffY);
         
         if(diffX == diffY) {
             //<editor-fold desc="diffX = diffY" defaultstate="collapsed">
             diffX = p2.x-p1.x;
             diffY = p2.y-p1.y;
-            int c;
+            int c = diffY/Math.abs(diffY);
             for (int i = diffX/Math.abs(diffX); Math.abs(i) < Math.abs(diffX); i += i/Math.abs(i)) {
-                c = diffY/Math.abs(diffY);
                 ret |= map[p1.x+i][p1.y+c] != path;
                 c += c/Math.abs(c);
-                System.out.println((p1.x+i) + "/" + (p1.y+i));
+                System.out.println("Checking: " + (p1.x+i) + "/" + (p1.y+i));
             }
             
             //</editor-fold>
@@ -188,7 +187,7 @@ public class GameLogic {
             diffY = p2.y-p1.y;
             for (int i = diffY/Math.abs(diffY); Math.abs(i) < Math.abs(diffY); i += i/Math.abs(i)) {
                 ret |= map[p1.x][p1.y+i] != path;
-                System.out.println((p1.x) + "/" + (p1.y+i));
+                System.out.println("Checking: " + (p1.x) + "/" + (p1.y+i));
             }
             //</editor-fold>
         }
@@ -197,7 +196,7 @@ public class GameLogic {
             diffX = p2.x-p1.x;
             for (int i = diffX/Math.abs(diffX); Math.abs(i) < Math.abs(diffX); i += i/Math.abs(i)) {
                 ret |= map[p1.x+i][p1.y] != path;
-                System.out.println((p1.x+i) + "/" + (p1.y));
+                System.out.println("Checking: " + (p1.x+i) + "/" + (p1.y));
             }
             //</editor-fold>
         }
@@ -210,19 +209,19 @@ public class GameLogic {
             
             if (offset != 0)    for (int i = offset/Math.abs(offset); Math.abs(i) < Math.abs(offset)+1; i += i/Math.abs(i)) {
                 ret |= map[p1.x+i][p1.y] != path;
-                    System.out.println((p1.x+i) + "/" + p1.y);
+                    System.out.println("Checking: " + (p1.x+i) + "/" + p1.y);
             }
                 
             ret |= map[p1.x+offset][p1.y+direction] != path;
-                System.out.println((p1.x+offset) + "/" + (p1.y+direction));
+                System.out.println("Checking: " + (p1.x+offset) + "/" + (p1.y+direction));
             
             for (int c = 0; c < Math.abs(diffY); c++) {
                 ret |= map[p1.x+offset+(c*step)][p1.y+((c+1)*direction)] != path;
-                System.out.println((p1.x+offset+(c*step)) + "/" + (p1.y+((c+1)*direction)));
+                System.out.println("Checking: " + (p1.x+offset+(c*step)) + "/" + (p1.y+((c+1)*direction)));
                 
                 for (int i = diffX/Math.abs(diffX); Math.abs(i) < Math.abs(step)+1; i += (i/Math.abs(i))) {
                     ret |= (map[p1.x+offset+(c*step)+i][p1.y+((c+1)*direction)] != path) && (map[p1.x+offset+(c*step)+i][p1.y+((c+1)*direction)] != playerNotTurn);
-                    System.out.println((p1.x+offset+(c*step)+i) + "/" + (p1.y+((c+1)*direction)));
+                    System.out.println("Checking: " + (p1.x+offset+(c*step)+i) + "/" + (p1.y+((c+1)*direction)));
                 }
                 
             }
@@ -237,19 +236,19 @@ public class GameLogic {
             
             if (offset != 0)    for (int i = offset/Math.abs(offset); Math.abs(i) < Math.abs(offset)+1; i += i/Math.abs(i)) {
                 ret |= map[p1.x][p1.y+i] != path;
-                    System.out.println((p1.x) + "/" + (p1.y+i));
+                    System.out.println("Checking: " + (p1.x) + "/" + (p1.y+i));
             }
                 
             ret |= map[p1.x+direction][p1.y+offset] != path;
-                System.out.println((p1.x+direction) + "/" + (p1.y+offset));
+                System.out.println("Checking: " + (p1.x+direction) + "/" + (p1.y+offset));
             
             for (int c = 0; c < Math.abs(diffX); c++) {
                 ret |= map[p1.x+((c+1)*direction)][p1.y+offset+(c*step)] != path;
-                System.out.println((p1.x+((c+1)*direction)) + "/" + (p1.y+offset+(c*step)));
+                System.out.println("Checking: " + (p1.x+((c+1)*direction)) + "/" + (p1.y+offset+(c*step)));
                 
                 for (int i = diffY/Math.abs(diffY); Math.abs(i) < Math.abs(step)+1; i += (i/Math.abs(i))) {
                     ret |= (map[p1.x+((c+1)*direction)][p1.y+offset+(c*step)+i] != path) && (map[p1.x+((c+1)*direction)][p1.y+offset+(c*step)+i] != playerNotTurn);
-                    System.out.println((p1.x+((c+1)*direction)) + "/" + (p1.y+offset+(c*step)+i));
+                    System.out.println("Checking: " + (p1.x+((c+1)*direction)) + "/" + (p1.y+offset+(c*step)+i));
                 }
                 
             }

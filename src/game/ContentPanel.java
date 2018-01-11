@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -47,7 +48,8 @@ public class ContentPanel extends javax.swing.JPanel {
             images[5] = ImageIO.read(new File("img//player1cross.png"));
             images[6] = ImageIO.read(new File("img//player2cross.png"));
         } catch (IOException ex) {
-            Logger.getLogger(ContentPanel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "A texture is not readable", "Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
         //</editor-fold>
         
@@ -64,7 +66,7 @@ public class ContentPanel extends javax.swing.JPanel {
         this.setSize(screen);
         
         
-        System.out.println(screen);
+        System.out.println("Bildschirmgröße: " + screen.width + ":" + screen.height);
         
     }
 

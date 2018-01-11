@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Erik/Documents/NetBeansProjects/STRG/src/main/Start.java</file>
-            <file>file:/C:/Users/Erik/Documents/NetBeansProjects/STRG/src/game/GameFrame.java</file>
-            <file>file:/C:/Users/Erik/Documents/NetBeansProjects/STRG/src/game/ControlPanel.java</file>
-            <file>file:/C:/Users/Erik/Documents/NetBeansProjects/STRG/src/game/FileManager.java</file>
-            <file>file:/C:/Users/Erik/Documents/NetBeansProjects/STRG/src/game/GameLogic.java</file>
-            <file>file:/C:/Users/Erik/Documents/NetBeansProjects/STRG/src/game/ContentPanel.java</file>
-            <file>file:/C:/Users/Erik/Documents/NetBeansProjects/STRG/src/login/LoginFrame.java</file>
-            <file>file:/C:/Users/Erik/Documents/NetBeansProjects/STRG/src/game/GamePanel.java</file>
+            <file>file:/D:/STRG/src/login/Database.java</file>
+            <file>file:/D:/STRG/src/login/DBController.java</file>
+            <file>file:/D:/STRG/src/login/LoginFrame.java</file>
+            <file>file:/D:/STRG/src/main/Start.java</file>
         </group>
     </open-files>
 </project-private>
